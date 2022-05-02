@@ -5,9 +5,10 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 export const Login = () => {
-  const { handleAuth } = useContext(AuthContext);
+  const { handleAuth, address, handleaddress } = useContext(AuthContext);
   const [userdata, setuserdata] = useState({});
   const [serverdata, setserverdata] = useState([]);
+
   const [data, setdata] = useState({
     username: "",
     password: "",
@@ -15,17 +16,9 @@ export const Login = () => {
   const handlechange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-
     setdata({ ...data, [name]: value });
   };
-  let role = () => {
-    if (userdata.role === "admin") {
-      console.log(userdata.role);
-      return "/orders";
-    } else {
-      return "/neworder";
-    }
-  };
+
   function handleevent(e) {
     e.preventDefault();
     getdata();
@@ -46,25 +39,19 @@ export const Login = () => {
       })
       .catch(function (error) {
         console.log(error);
-      })
-      .then(function () {
-        // always executed
       });
   };
   const check = () => {
     let n = serverdata.length;
-
     for (let i = 0; i < n; i++) {
       let temp = serverdata[i];
-
       if (temp.username === data.username && temp.pass === data.password) {
         setuserdata(temp);
-        console.log(temp, "temp");
-        console.log(userdata, "userdata");
         handleAuth(true);
-
+        handleaddress("/orders");
         break;
       } else {
+        handleaddress("/neworder");
         handleAuth(false);
       }
     }
@@ -88,13 +75,12 @@ export const Login = () => {
       {/* On this button click make network req to find user with same username and password */}
       {/* get his role, if role is `admin` take him to `/orders` page otherwise take him to `/neworder` */}
 
-      <Link key={Date.now()} to={role()}>
-        <button className="submit" onClick={handleevent}>
-          Login
-        </button>
-      </Link>
+      <button className="submit" onClick={handleevent}>
+        Login
+      </button>
+
       {<div>{userdata.username}</div>}
-      <Link key={Date.now() + "fds"} to={role()}>
+      <Link key={Date.now() + "fds"} to={address}>
         {" "}
         see orders
       </Link>
