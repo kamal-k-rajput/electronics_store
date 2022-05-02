@@ -84,7 +84,7 @@ export const Login = () => {
         {" "}
         see orders
       </Link>
-      <h3>for login you have to click three two on login button</h3>
+      <h3>for login you have to click two times on login button</h3>
     </div>
   );
 };
