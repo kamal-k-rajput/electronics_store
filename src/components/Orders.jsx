@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { nanoid } from "nanoid";
 export const Orders = () => {
   //  Get all data when admin logs in and populate it
   // store it in redux
@@ -32,26 +33,36 @@ export const Orders = () => {
         </div>
         <table className="orders">
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Problem</th>
-              <th>Client Name</th>
-              <th>Status</th>
-              <th>Cost</th>
-              <th>Change Status</th>
-              <th>Accept</th>
+            <tr key={nanoid(4)}>
+              <th key={nanoid(4)}>ID</th>
+              <th key={nanoid(4)}>Problem</th>
+              <th key={nanoid(4)}>Client Name</th>
+              <th key={nanoid(4)}>Status</th>
+              <th key={nanoid(4)}>Cost</th>
+              <th key={nanoid(4)}>Change Status</th>
+              <th key={nanoid(4)}>Accept</th>
             </tr>
           </thead>
           <tbody>
             {serverdata.map((order) => {
               return (
-                <tr className="orders-row">
-                  <td className="id" >{order.id}</td>
-                  <td className="problem">{order.prolem}</td>
-                  <td className="owner">{order.owner_name}</td>
-                  <td className="status">{order.status}</td>
-                  <td className="cost">{order.cost}</td>
-                  <td className="change-status">
+                <tr className="orders-row" key={nanoid(4)}>
+                  <td className="id" key={nanoid(4)}>
+                    {order.id}
+                  </td>
+                  <td className="problem" key={nanoid(4)}>
+                    {order.prolem}
+                  </td>
+                  <td className="owner" key={nanoid(4)}>
+                    {order.owner_name}
+                  </td>
+                  <td className="status" key={nanoid(4)}>
+                    {order.status}
+                  </td>
+                  <td className="cost" key={nanoid(4)}>
+                    {order.cost}
+                  </td>
+                  <td className="change-status" key={nanoid(4)}>
                     {/* Show select dropdown only if status is Not Accepted */}
                     <select className="changeStatus" name="changeStatus">
                       <option value="Pending">Pending</option>
@@ -60,7 +71,7 @@ export const Orders = () => {
                       <option value="Not Accepted">Not Accepted</option>
                     </select>
                   </td>
-                  <td className="accept">
+                  <td className="accept" key={nanoid(4)}>
                     {/* Show this button only if status is Not Accepted */}
                     {/* on change make request to update it in db, and show changed status in table */}
                     {order.status === "Accepted" ? "" : <button>Accept</button>}
